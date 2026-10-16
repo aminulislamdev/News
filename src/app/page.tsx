@@ -1,11 +1,9 @@
-import Header from "@/components/Header";
-import NavLinks from "@/components/Navlinks";
+import Marquee from "@/components/Marquee";
 
 export default function Home() {
   return (
     <div>
-      <Header></Header>
-      <NavLinks></NavLinks>
+      <Marquee></Marquee>
     </div>
   );
 }
