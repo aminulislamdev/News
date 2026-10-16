@@ -4,6 +4,7 @@ import INDNews from "@/components/INDNews";
 import MainNews from "@/components/MainNews";
 import Marquee from "@/components/Marquee";
 import SelectedNews from "@/components/SelectedNews";
+import Video from "@/components/Video";
 import WorldNews from "@/components/WorldNews";
 
 export default function Home() {
@@ -18,6 +19,7 @@ export default function Home() {
           <INDNews></INDNews>
           <WorldNews></WorldNews>
           <HealthNews></HealthNews>
+          <Video></Video>
         </div>
         <div className="col-span-1">2</div>
       </div>
