@@ -1,3 +1,4 @@
+import BDNews from "@/components/BDNews";
 import MainNews from "@/components/MainNews";
 import Marquee from "@/components/Marquee";
 import SelectedNews from "@/components/SelectedNews";
@@ -10,6 +11,7 @@ export default function Home() {
         <div className="col-span-2">
           <MainNews></MainNews>
           <SelectedNews></SelectedNews>
+          <BDNews></BDNews>
         </div>
         <div className="col-span-1">2</div>
       </div>
