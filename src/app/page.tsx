@@ -1,4 +1,5 @@
 import BDNews from "@/components/BDNews";
+import ExtraNews from "@/components/ExtraNews";
 import HealthNews from "@/components/HealthNews";
 import INDNews from "@/components/INDNews";
 import MainNews from "@/components/MainNews";
@@ -20,6 +21,7 @@ export default function Home() {
           <WorldNews></WorldNews>
           <HealthNews></HealthNews>
           <Video></Video>
+          <ExtraNews></ExtraNews>
         </div>
         <div className="col-span-1">2</div>
       </div>
