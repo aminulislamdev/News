@@ -7,7 +7,7 @@ const Header = () => {
   });
 
   return (
-    <header className="mx-auto max-w-7xl">
+    <header className="mx-auto container">
      
       <div className="grid grid-cols-3 items-center px-6 py-4">
 
