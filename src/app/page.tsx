@@ -3,6 +3,7 @@ import INDNews from "@/components/INDNews";
 import MainNews from "@/components/MainNews";
 import Marquee from "@/components/Marquee";
 import SelectedNews from "@/components/SelectedNews";
+import WorldNews from "@/components/WorldNews";
 
 export default function Home() {
   return (
@@ -14,6 +15,7 @@ export default function Home() {
           <SelectedNews></SelectedNews>
           <BDNews></BDNews>
           <INDNews></INDNews>
+          <WorldNews></WorldNews>
         </div>
         <div className="col-span-1">2</div>
       </div>
