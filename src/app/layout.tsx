@@ -4,6 +4,7 @@ import "./globals.css";
 import NavLinks from "@/components/Navlinks";
 import Header from "@/components/Header";
 import Marquee from "@/components/Marquee";
+import Footer from "@/components/Footer";
 
 const geistSans = Noto_Serif_Bengali({
   variable: "--font-geist-sans",
@@ -28,6 +29,7 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
         <main>
           {children}
         </main>
+        <Footer></Footer>
       </body>
     </html>
   );
