@@ -10,7 +10,7 @@ const NavLinks = async () => {
     <div className='flex justify-center items-center gap-4 text-sm'>
       <Link href={'/'}>হোম</Link>
       {filterNav.map((navData: { slug: string; title: string }, index: number) => (
-        <Link key={index} href={navData.slug} className='hover:text-red-700'>{navData.title}</Link>
+        <Link key={index} href={`/category/${navData.slug}`} className='hover:text-red-700'>{navData.title}</Link>
       ))}
     </div>
   );
