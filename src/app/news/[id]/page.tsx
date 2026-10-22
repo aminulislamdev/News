@@ -30,13 +30,18 @@ async function NewsDetails({
   }
 
   const imageUrl = resolveNewsImageUrl(article.imageUrl, 1024);
+  const heroImageIdentity = imageUrl ? getImageIdentity(imageUrl) : null;
   const publishedAt = formatBengaliDateTime(article.firstPublished);
   const byline = article.byline
     .map((person) => [person.name, person.role].filter(Boolean).join(", "))
     .join(" · ");
-  const body = article.imageUrl
+  const body = heroImageIdentity
     ? article.body.filter(
-        (block) => !(block.type === "image" && block.url === article.imageUrl)
+        (block) =>
+          !(
+            block.type === "image" &&
+            getImageIdentity(block.url) === heroImageIdentity
+          )
       )
     : article.body;
 
@@ -102,6 +107,15 @@ async function NewsDetails({
       )}
     </article>
   );
+}
+
+// The same CDN image can be represented with a width placeholder or a concrete
+// width, and with an optional WebP wrapper (e.g. .jpg.webp vs .jpg).
+function getImageIdentity(url: string): string {
+  return url
+    .replace(/[?#].*$/, "")
+    .replace(/\/ws\/(?:\{width\}|\d+)\//gi, "/ws/{width}/")
+    .replace(/\.webp$/i, "");
 }
 
 function ArticleBodyBlock({ block }: { block: IArticleBodyBlock }) {
