@@ -1,11 +1,8 @@
+import Link from "next/link";
+import { getMostRead } from "@/lib/news";
 
 const MostRead = async () => {
-  const res = await fetch(
-    "https://news-api-v2.vercel.app/api/news/most-read"
-  );
-
-  const data = await res.json();
-  const mostRead = data.data;
+  const mostRead = await getMostRead();
 
   return (
     <section className="space-y-5">
@@ -14,32 +11,23 @@ const MostRead = async () => {
       </h2>
 
       <div className="space-y-4">
-        {mostRead.map(
-          (
-            news: {
-              id: string | number;
-              category: string;
-              title: string;
-            },
-            ind: number
-          ) => (
-            <div
-              key={news.id}
-              className="flex items-start gap-4 border-b border-gray-200 pb-4"
-            >
-              <p className="text-3xl font-bold text-red-600">
-                {String(ind + 1).padStart(2, "0")}
-              </p>
+        {mostRead.map((news, ind) => (
+          <Link
+            key={news.id}
+            href={`/news/${news.id}`}
+            className="flex items-start gap-4 border-b border-gray-200 pb-4 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-red-600 focus-visible:ring-offset-2"
+          >
+            <p className="text-3xl font-bold text-red-600">
+              {String(ind + 1).padStart(2, "0")}
+            </p>
 
-              <div className="flex flex-col gap-2">
-
-                <h3 className="font-semibold leading-6 hover:text-red-600 cursor-pointer">
-                  {news.title}
-                </h3>
-              </div>
+            <div className="flex flex-col gap-2">
+              <h3 className="font-semibold leading-6 hover:text-red-600">
+                {news.title}
+              </h3>
             </div>
-          )
-        )}
+          </Link>
+        ))}
       </div>
     </section>
   );
