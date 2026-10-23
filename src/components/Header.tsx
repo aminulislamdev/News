@@ -1,6 +1,7 @@
 import Image from "next/image";
 import { Suspense } from "react";
 import { io } from "next/cache";
+import AuthNav from "@/components/auth/AuthNav";
 import logo from "../../public/logo.webp";
 
 async function CurrentDate() {
@@ -36,14 +37,7 @@ const Header = () => {
           </div>
         </div>
 
-        <div className="flex items-center justify-end gap-3">
-          <button className="text-sm hover:text-red-600">
-            সাইন ইন
-          </button>
-          <button className="bg-red-700 text-white px-3 py-2 rounded-md text-sm hover:bg-red-900">
-            সাইন আপ
-          </button>
-        </div>
+        <AuthNav />
       </div>
     </header>
   );
