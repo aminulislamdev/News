@@ -57,6 +57,35 @@ const globalForAuth = globalThis as typeof globalThis & {
   __banglaNewsAuth?: ReturnType<typeof createAuth>;
 };
 
+function getGoogleProviderConfig() {
+  const clientId = process.env.GOOGLE_CLIENT_ID?.trim();
+  const clientSecret = process.env.GOOGLE_CLIENT_SECRET?.trim();
+
+  if (!clientId && !clientSecret) {
+    return null;
+  }
+
+  if (!clientId || !clientSecret) {
+    throw new Error(
+      "Google sign-in is partially configured. Set both GOOGLE_CLIENT_ID and GOOGLE_CLIENT_SECRET, or remove both to disable it."
+    );
+  }
+
+  return {
+    clientId,
+    clientSecret,
+    prompt: "select_account" as const,
+  };
+}
+
+/**
+ * Google sign-in is only offered in the UI when both credentials are present.
+ * Email-and-password authentication keeps working without Google credentials.
+ */
+export function isGoogleAuthEnabled(): boolean {
+  return getGoogleProviderConfig() !== null;
+}
+
 function createAuth() {
   const secret = process.env.BETTER_AUTH_SECRET?.trim();
 
@@ -69,6 +98,7 @@ function createAuth() {
   const mongoUri = getMongoUri();
   const mongoClient =
     globalForAuth.__banglaNewsMongoClient ?? new MongoClient(mongoUri);
+  const googleProvider = getGoogleProviderConfig();
 
   if (process.env.NODE_ENV !== "production") {
     globalForAuth.__banglaNewsMongoClient = mongoClient;
@@ -85,6 +115,19 @@ function createAuth() {
       autoSignIn: true,
       minPasswordLength: 8,
       maxPasswordLength: 128,
+    },
+    ...(googleProvider
+      ? {
+          socialProviders: {
+            google: googleProvider,
+          },
+        }
+      : {}),
+    onAPIError: {
+      // OAuth callback failures without a usable state (expired links, CSRF
+      // checks) should land on the sign-in page with a readable error instead
+      // of Better Auth's default /api/auth/error endpoint.
+      errorURL: "/sign-in",
     },
   });
 }
