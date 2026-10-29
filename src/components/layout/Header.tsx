@@ -2,7 +2,7 @@ import Image from "next/image";
 import { Suspense } from "react";
 import { io } from "next/cache";
 import AuthNav from "@/components/auth/AuthNav";
-import logo from "../../public/logo.webp";
+import logo from "../../../public/logo.webp";
 
 async function CurrentDate() {
   await io();
