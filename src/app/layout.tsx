@@ -1,10 +1,10 @@
 import type { Metadata } from "next";
 import { Noto_Serif_Bengali } from "next/font/google";
 import "./globals.css";
-import NavLinks from "@/components/Navlinks";
-import Header from "@/components/Header";
-import Marquee from "@/components/Marquee";
-import Footer from "@/components/Footer";
+import NavLinks from "@/components/layout/Navlinks";
+import Header from "@/components/layout/Header";
+import Marquee from "@/components/layout/Marquee";
+import Footer from "@/components/layout/Footer";
 
 const geistSans = Noto_Serif_Bengali({
   variable: "--font-geist-sans",
