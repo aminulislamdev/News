@@ -1,8 +1,8 @@
 import type { Metadata } from "next";
 import { Suspense } from "react";
-import AuthFormSkeleton from "@/components/auth/AuthFormSkeleton";
+import AuthFormSkeleton from "@/components/forms/AuthFormSkeleton";
 import AuthShell from "@/components/auth/AuthShell";
-import SignUpForm from "@/components/auth/SignUpForm";
+import SignUpForm from "@/components/forms/SignUpForm";
 import { getSafeCallbackUrl } from "@/lib/auth-validation";
 import { getServerSession } from "@/lib/session";
 import { redirect } from "next/navigation";
