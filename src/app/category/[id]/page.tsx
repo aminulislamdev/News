@@ -1,6 +1,6 @@
 import { notFound } from "next/navigation";
 import { Suspense } from "react";
-import CategoryNewsCard from "@/components/CategoryNewsCard";
+import CategoryNewsCard from "@/components/news/CategoryNewsCard";
 import { getCategoryNews } from "@/lib/news";
 
 export default function CategoryPage({
