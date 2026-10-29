@@ -1,4 +1,4 @@
-import NewsSection from "@/components/NewsSection";
+import NewsSection from "@/components/news/NewsSection";
 
 const HealthNews = () => <NewsSection index={7} />;
 
