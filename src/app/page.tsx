@@ -1,12 +1,12 @@
-import BDNews from "@/components/BDNews";
-import ExtraNews from "@/components/ExtraNews";
-import HealthNews from "@/components/HealthNews";
-import INDNews from "@/components/INDNews";
-import MainNews from "@/components/MainNews";
-import MostRead from "@/components/MostRead";
-import SelectedNews from "@/components/SelectedNews";
-import Video from "@/components/Video";
-import WorldNews from "@/components/WorldNews";
+import BDNews from "@/components/news/BDNews";
+import ExtraNews from "@/components/news/ExtraNews";
+import HealthNews from "@/components/news/HealthNews";
+import INDNews from "@/components/news/INDNews";
+import MainNews from "@/components/news/MainNews";
+import MostRead from "@/components/news/MostRead";
+import SelectedNews from "@/components/news/SelectedNews";
+import Video from "@/components/news/Video";
+import WorldNews from "@/components/news/WorldNews";
 
 export default function Home() {
   return (
