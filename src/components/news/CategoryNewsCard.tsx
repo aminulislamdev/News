@@ -15,33 +15,33 @@ const CategoryNewsCard = ({
   const imageUrl = resolveNewsImageUrl(article.imageUrl);
 
   return (
-    <article className="flex flex-col h-full bg-white border border-gray-200 rounded-lg overflow-hidden shadow-sm hover:shadow-md transition-shadow duration-300">
+    <article className="flex h-full min-w-0 flex-col overflow-hidden rounded-lg border border-gray-200 bg-white shadow-sm transition-shadow duration-300 hover:shadow-md">
       <Link
         href={`/news/${article.id}`}
-        className="flex flex-col h-full focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-inset focus-visible:ring-red-600"
+        className="flex h-full min-w-0 flex-col focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-inset focus-visible:ring-red-600"
       >
         {imageUrl && (
-          <figure className="relative w-full h-52">
+          <figure className="relative h-52 w-full">
             <Image
               src={imageUrl}
               alt={article.imageAlt || article.title}
               fill
               className="object-cover"
-              sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+              sizes="(max-width: 639px) 100vw, (max-width: 1023px) 50vw, 33vw"
             />
           </figure>
         )}
 
-        <div className="flex flex-col grow p-4 md:p-5">
-          <span className="text-red-600 text-sm font-semibold mb-2 block">
+        <div className="flex min-w-0 grow flex-col p-4 md:p-5">
+          <span className="mb-2 block break-words text-sm font-semibold text-red-600">
             {categoryTitle}
           </span>
 
-          <h3 className="text-lg font-bold text-gray-900 leading-snug mb-2 line-clamp-2 hover:text-red-600 transition-colors">
+          <h3 className="mb-2 line-clamp-2 break-words text-lg font-bold leading-snug text-gray-900 transition-colors hover:text-red-600">
             {article.title}
           </h3>
 
-          <p className="text-sm text-gray-600 line-clamp-3 mb-4 grow">
+          <p className="mb-4 line-clamp-3 grow break-words text-sm text-gray-600">
             {article.description}
           </p>
         </div>

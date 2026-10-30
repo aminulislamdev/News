@@ -28,7 +28,9 @@ async function CategoryContent({
   return (
     <section className="container mx-auto px-4 py-8 space-y-6 pb-10">
       <div className="space-y-3">
-        <h2 className="text-2xl font-bold text-gray-900">{category.title}</h2>
+        <h2 className="break-words text-xl font-bold text-gray-900 sm:text-2xl">
+          {category.title}
+        </h2>
 
         <div className="h-1 w-full bg-red-600 rounded"></div>
       </div>

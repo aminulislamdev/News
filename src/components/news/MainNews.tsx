@@ -23,7 +23,7 @@ const MainNews = async () => {
 
   return (
     <section className="bg-gray-50 py-6">
-      <div className="mx-auto grid max-w-6xl grid-cols-1 gap-4 px-4 md:grid-cols-2">
+      <div className="grid grid-cols-1 gap-4 md:grid-cols-2">
         {/* Main News */}
         <article className="overflow-hidden rounded-lg border border-gray-200 bg-white transition-shadow duration-300 hover:shadow-md">
           <Link
@@ -37,22 +37,22 @@ const MainNews = async () => {
                   alt={firstNews.imageAlt || "News Image"}
                   width={640}
                   height={360}
-                  sizes="(max-width: 768px) 100vw, 50vw"
+                  sizes="(max-width: 767px) 100vw, (max-width: 1023px) 50vw, 33vw"
                   className="h-auto max-h-64 w-full object-cover transition-transform duration-300 hover:scale-105"
                 />
               </figure>
             )}
 
             <div className="p-4">
-              <p className="mb-2 text-xs font-semibold text-red-600">
+              <p className="mb-2 break-words text-xs font-semibold text-red-600">
                 {firstNews.category}
               </p>
 
-              <h2 className="mb-3 text-xl font-bold leading-snug text-gray-900 transition-colors hover:text-red-700">
+              <h2 className="mb-3 break-words text-xl font-bold leading-snug text-gray-900 transition-colors hover:text-red-700">
                 {firstNews.title}
               </h2>
 
-              <p className="mb-4 line-clamp-3 text-sm leading-6 text-gray-600">
+              <p className="mb-4 line-clamp-3 break-words text-sm leading-6 text-gray-600">
                 {firstNews.description}
               </p>
 
@@ -77,11 +77,11 @@ const MainNews = async () => {
                   : ""
               }`}
             >
-              <p className="mb-1.5 text-sm font-semibold text-red-600">
+              <p className="mb-1.5 break-words text-sm font-semibold text-red-600">
                 {news.category}
               </p>
 
-              <h3 className="text-base font-semibold leading-snug text-gray-900 transition-colors hover:text-red-700">
+              <h3 className="break-words text-base font-semibold leading-snug text-gray-900 transition-colors hover:text-red-700">
                 {news.title}
               </h3>
             </Link>

@@ -13,12 +13,12 @@ const NewsSection = async ({ index }: NewsSectionProps) => {
   }
 
   return (
-    <section className="space-y-6 pb-5">
-      <h2 className="text-xl font-bold">{section.title}</h2>
+    <section className="min-w-0 space-y-6 pb-5">
+      <h2 className="break-words text-xl font-bold">{section.title}</h2>
 
       <hr />
 
-      <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3">
+      <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 xl:grid-cols-3">
         {section.articles.map((article) => (
           <NewsCard key={article.id} article={article} />
         ))}

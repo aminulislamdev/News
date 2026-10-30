@@ -32,7 +32,7 @@ async function AccountContent() {
       <div className="p-6 sm:p-8">
         <p className="text-sm font-semibold text-red-700">আমার অ্যাকাউন্ট</p>
 
-        <h1 className="mt-2 text-2xl font-bold text-gray-900 sm:text-3xl">
+        <h1 className="mt-2 break-words text-2xl font-bold text-gray-900 sm:text-3xl">
           স্বাগতম, {session.user.name}
         </h1>
 
@@ -45,7 +45,7 @@ async function AccountContent() {
             <dt className="text-xs font-semibold uppercase tracking-wide text-gray-500">
               নাম
             </dt>
-            <dd className="mt-1 text-sm text-gray-900">
+            <dd className="mt-1 break-words text-sm text-gray-900">
               {session.user.name}
             </dd>
           </div>

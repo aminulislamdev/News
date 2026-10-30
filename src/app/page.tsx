@@ -10,9 +10,9 @@ import WorldNews from "@/components/news/WorldNews";
 
 export default function Home() {
   return (
-    <div>
-      <div className=" grid grid-cols-3 container mx-auto gap-4">
-        <div className="col-span-2">
+    <div className="container mx-auto px-4 py-6">
+      <div className="grid grid-cols-1 gap-6 lg:grid-cols-3 lg:gap-8">
+        <div className="min-w-0 lg:col-span-2">
           <MainNews></MainNews>
           <SelectedNews></SelectedNews>
           <BDNews></BDNews>
@@ -22,7 +22,7 @@ export default function Home() {
           <Video></Video>
           <ExtraNews></ExtraNews>
         </div>
-        <div className="col-span-1"><MostRead></MostRead></div>
+        <div className="min-w-0 lg:col-span-1"><MostRead></MostRead></div>
       </div>
     </div>
   );

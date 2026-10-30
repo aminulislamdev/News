@@ -46,7 +46,7 @@ async function NewsDetails({
     : article.body;
 
   return (
-    <article className="container mx-auto max-w-4xl px-4 py-8">
+    <article className="container mx-auto max-w-4xl min-w-0 px-4 py-8">
       <Link
         href="/"
         className="text-sm font-semibold text-red-600 hover:underline"
@@ -55,20 +55,22 @@ async function NewsDetails({
       </Link>
 
       <header className="mt-6 space-y-4">
-        <p className="text-sm font-semibold text-red-600">{article.source}</p>
+        <p className="break-words text-sm font-semibold text-red-600">
+          {article.source}
+        </p>
 
-        <h1 className="text-3xl font-bold leading-tight text-gray-900 md:text-4xl">
+        <h1 className="break-words text-2xl font-bold leading-tight text-gray-900 sm:text-3xl md:text-4xl">
           {article.title}
         </h1>
 
         {article.description && (
-          <p className="text-lg leading-8 text-gray-600">
+          <p className="break-words text-base leading-7 text-gray-600 sm:text-lg sm:leading-8">
             {article.description}
           </p>
         )}
 
         <div className="flex flex-wrap items-center gap-x-4 gap-y-1 text-sm text-gray-500">
-          {byline && <span>{byline}</span>}
+          {byline && <span className="break-words">{byline}</span>}
           {publishedAt && (
             <time dateTime={article.firstPublished}>{publishedAt}</time>
           )}
@@ -98,7 +100,7 @@ async function NewsDetails({
           {article.tags.map((tag) => (
             <span
               key={tag}
-              className="rounded-full bg-gray-100 px-3 py-1 text-sm text-gray-700"
+              className="break-words rounded-full bg-gray-100 px-3 py-1 text-sm text-gray-700"
             >
               {tag}
             </span>
@@ -122,14 +124,16 @@ function ArticleBodyBlock({ block }: { block: IArticleBodyBlock }) {
   switch (block.type) {
     case "text":
       return (
-        <p className="whitespace-pre-line text-base leading-8 text-gray-700">
+        <p className="whitespace-pre-line break-words text-base leading-8 text-gray-700">
           {block.text}
         </p>
       );
 
     case "subheading":
       return (
-        <h2 className="pt-2 text-xl font-bold text-gray-900">{block.text}</h2>
+        <h2 className="break-words pt-2 text-xl font-bold text-gray-900">
+          {block.text}
+        </h2>
       );
 
     case "image":
@@ -141,11 +145,11 @@ function ArticleBodyBlock({ block }: { block: IArticleBodyBlock }) {
             width={block.width}
             height={block.height}
             sizes="(max-width: 896px) 100vw, 896px"
-            className="h-auto w-full rounded-lg"
+            className="h-auto w-full max-w-full rounded-lg"
           />
 
           {block.caption && (
-            <figcaption className="mt-2 text-center text-sm text-gray-500">
+            <figcaption className="mt-2 break-words text-center text-sm text-gray-500">
               {block.caption}
             </figcaption>
           )}
