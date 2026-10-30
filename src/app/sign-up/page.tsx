@@ -3,7 +3,11 @@ import { Suspense } from "react";
 import AuthFormSkeleton from "@/components/forms/AuthFormSkeleton";
 import AuthShell from "@/components/auth/AuthShell";
 import SignUpForm from "@/components/forms/SignUpForm";
-import { getSafeCallbackUrl } from "@/lib/auth-validation";
+import { isGoogleAuthEnabled } from "@/lib/auth";
+import {
+  getOAuthErrorMessage,
+  getSafeCallbackUrl,
+} from "@/lib/auth-validation";
 import { getServerSession } from "@/lib/session";
 import { redirect } from "next/navigation";
 
@@ -12,7 +16,10 @@ export const metadata: Metadata = {
 };
 
 interface SignUpPageProps {
-  searchParams: Promise<{ callbackUrl?: string | string[] }>;
+  searchParams: Promise<{
+    callbackUrl?: string | string[];
+    error?: string | string[];
+  }>;
 }
 
 export default function SignUpPage({ searchParams }: SignUpPageProps) {
@@ -31,11 +38,18 @@ export default function SignUpPage({ searchParams }: SignUpPageProps) {
 async function SignUpContent({ searchParams }: SignUpPageProps) {
   const params = await searchParams;
   const callbackUrl = getSafeCallbackUrl(params.callbackUrl);
+  const oauthError = getOAuthErrorMessage(params.error);
   const session = await getServerSession();
 
   if (session) {
     redirect(callbackUrl);
   }
 
-  return <SignUpForm callbackUrl={callbackUrl} />;
+  return (
+    <SignUpForm
+      callbackUrl={callbackUrl}
+      oauthError={oauthError}
+      googleEnabled={isGoogleAuthEnabled()}
+    />
+  );
 }

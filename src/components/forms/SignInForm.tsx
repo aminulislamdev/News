@@ -12,9 +12,12 @@ import {
 } from "@/lib/auth-validation";
 import AuthField from "./AuthField";
 import AuthSubmitButton from "./AuthSubmitButton";
+import GoogleSignInButton from "./GoogleSignInButton";
 
 interface SignInFormProps {
   callbackUrl: string;
+  oauthError?: string | null;
+  googleEnabled?: boolean;
 }
 
 interface FieldErrors {
@@ -22,18 +25,27 @@ interface FieldErrors {
   password?: string;
 }
 
-export default function SignInForm({ callbackUrl }: SignInFormProps) {
+export default function SignInForm({
+  callbackUrl,
+  oauthError = null,
+  googleEnabled = false,
+}: SignInFormProps) {
   const router = useRouter();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [fieldErrors, setFieldErrors] = useState<FieldErrors>({});
-  const [formError, setFormError] = useState<string | null>(null);
+  const [formError, setFormError] = useState<string | null>(oauthError);
   const [isSubmitting, setIsSubmitting] = useState(false);
 
   const signUpHref =
     callbackUrl === "/"
       ? "/sign-up"
       : `/sign-up?callbackUrl=${encodeURIComponent(callbackUrl)}`;
+
+  const errorCallbackUrl =
+    callbackUrl === "/"
+      ? "/sign-in"
+      : `/sign-in?callbackUrl=${encodeURIComponent(callbackUrl)}`;
 
   function clearFormError() {
     if (formError) {
@@ -93,6 +105,26 @@ export default function SignInForm({ callbackUrl }: SignInFormProps) {
         >
           {formError}
         </div>
+      )}
+
+      {googleEnabled && (
+        <>
+          <GoogleSignInButton
+            callbackUrl={callbackUrl}
+            errorCallbackUrl={errorCallbackUrl}
+            onError={setFormError}
+            disabled={isSubmitting}
+          />
+
+          <div aria-hidden="true" className="relative">
+            <div className="absolute inset-0 flex items-center">
+              <span className="w-full border-t border-gray-200" />
+            </div>
+            <div className="relative flex justify-center text-xs font-medium uppercase tracking-wider">
+              <span className="bg-white px-3 text-gray-500">অথবা</span>
+            </div>
+          </div>
+        </>
       )}
 
       <AuthField

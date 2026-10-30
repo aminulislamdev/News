@@ -3,7 +3,11 @@ import { Suspense } from "react";
 import AuthFormSkeleton from "@/components/forms/AuthFormSkeleton";
 import AuthShell from "@/components/auth/AuthShell";
 import SignInForm from "@/components/forms/SignInForm";
-import { getSafeCallbackUrl } from "@/lib/auth-validation";
+import { isGoogleAuthEnabled } from "@/lib/auth";
+import {
+  getOAuthErrorMessage,
+  getSafeCallbackUrl,
+} from "@/lib/auth-validation";
 import { getServerSession } from "@/lib/session";
 import { redirect } from "next/navigation";
 
@@ -12,7 +16,10 @@ export const metadata: Metadata = {
 };
 
 interface SignInPageProps {
-  searchParams: Promise<{ callbackUrl?: string | string[] }>;
+  searchParams: Promise<{
+    callbackUrl?: string | string[];
+    error?: string | string[];
+  }>;
 }
 
 export default function SignInPage({ searchParams }: SignInPageProps) {
@@ -31,11 +38,18 @@ export default function SignInPage({ searchParams }: SignInPageProps) {
 async function SignInContent({ searchParams }: SignInPageProps) {
   const params = await searchParams;
   const callbackUrl = getSafeCallbackUrl(params.callbackUrl);
+  const oauthError = getOAuthErrorMessage(params.error);
   const session = await getServerSession();
 
   if (session) {
     redirect(callbackUrl);
   }
 
-  return <SignInForm callbackUrl={callbackUrl} />;
+  return (
+    <SignInForm
+      callbackUrl={callbackUrl}
+      oauthError={oauthError}
+      googleEnabled={isGoogleAuthEnabled()}
+    />
+  );
 }

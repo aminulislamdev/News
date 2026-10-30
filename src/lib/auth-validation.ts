@@ -114,11 +114,62 @@ export function getSafeCallbackUrl(
     ) {
       return fallback;
     }
-
     return `${pathname}${url.search}${url.hash}`;
   } catch {
     return fallback;
   }
+}
+
+const OAUTH_ERROR_MESSAGES: Record<string, string> = {
+  access_denied: "Google সাইন ইন বাতিল করা হয়েছে। চাইলে আবার চেষ্টা করুন।",
+  account_not_linked:
+    "এই ইমেইল দিয়ে আগে থেকেই একটি অ্যাকাউন্ট আছে। প্রথমে ইমেইল ও পাসওয়ার্ড দিয়ে সাইন ইন করুন।",
+  account_already_linked_to_different_user:
+    "এই Google অ্যাকাউন্টটি অন্য একটি অ্যাকাউন্টের সঙ্গে যুক্ত আছে।",
+  email_does_not_match:
+    "Google অ্যাকাউন্টের ইমেইল বর্তমান অ্যাকাউন্টের ইমেইলের সঙ্গে মিলছে না।",
+  email_not_found:
+    "Google অ্যাকাউন্ট থেকে ইমেইল পাওয়া যায়নি। অন্য Google অ্যাকাউন্ট দিয়ে চেষ্টা করুন।",
+  email_not_verified:
+    "Google অ্যাকাউন্টের ইমেইল যাচাই করা যায়নি। অন্য Google অ্যাকাউন্ট দিয়ে চেষ্টা করুন।",
+  unable_to_link_account:
+    "Google অ্যাকাউন্টটি আপনার অ্যাকাউন্টের সঙ্গে যুক্ত করা যায়নি। আবার চেষ্টা করুন।",
+  oauth_provider_not_found:
+    "Google সাইন ইন এই মুহূর্তে উপলব্ধ নয়। ইমেইল ও পাসওয়ার্ড দিয়ে সাইন ইন করুন।",
+  state_not_found:
+    "সাইন ইন অনুরোধের মেয়াদ শেষ হয়েছে বা এটি সঠিক নয়। আবার চেষ্টা করুন।",
+  state_mismatch:
+    "সাইন ইন অনুরোধের মেয়াদ শেষ হয়েছে বা এটি সঠিক নয়। আবার চেষ্টা করুন।",
+  invalid_callback_request:
+    "সাইন ইন অনুরোধটি সঠিক নয়। আবার চেষ্টা করুন।",
+  no_code: "Google সাইন ইন সম্পন্ন করা যায়নি। আবার চেষ্টা করুন।",
+  invalid_code: "Google সাইন ইন সম্পন্ন করা যায়নি। আবার চেষ্টা করুন।",
+};
+
+/**
+ * Maps the OAuth error code Better Auth adds to the redirect URL to a safe,
+ * user-facing message. Unknown codes get a generic message; raw provider
+ * descriptions are never rendered.
+ */
+export function getOAuthErrorMessage(
+  value: string | string[] | undefined
+): string | null {
+  const candidate = Array.isArray(value) ? value[0] : value;
+
+  if (!candidate || typeof candidate !== "string") {
+    return null;
+  }
+
+  const code = candidate.trim().toLowerCase();
+
+  if (!code) {
+    return null;
+  }
+
+  return (
+    OAUTH_ERROR_MESSAGES[code] ??
+    "Google দিয়ে সাইন ইন করা যায়নি। আবার চেষ্টা করুন।"
+  );
 }
 
 type AuthErrorDetails = {

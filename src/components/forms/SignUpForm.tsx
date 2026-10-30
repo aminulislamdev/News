@@ -18,9 +18,12 @@ import {
 } from "@/lib/auth-validation";
 import AuthField from "./AuthField";
 import AuthSubmitButton from "./AuthSubmitButton";
+import GoogleSignInButton from "./GoogleSignInButton";
 
 interface SignUpFormProps {
   callbackUrl: string;
+  oauthError?: string | null;
+  googleEnabled?: boolean;
 }
 
 interface FieldErrors {
@@ -30,14 +33,18 @@ interface FieldErrors {
   confirmPassword?: string;
 }
 
-export default function SignUpForm({ callbackUrl }: SignUpFormProps) {
+export default function SignUpForm({
+  callbackUrl,
+  oauthError = null,
+  googleEnabled = false,
+}: SignUpFormProps) {
   const router = useRouter();
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
   const [fieldErrors, setFieldErrors] = useState<FieldErrors>({});
-  const [formError, setFormError] = useState<string | null>(null);
+  const [formError, setFormError] = useState<string | null>(oauthError);
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [isSuccessful, setIsSuccessful] = useState(false);
 
@@ -45,6 +52,11 @@ export default function SignUpForm({ callbackUrl }: SignUpFormProps) {
     callbackUrl === "/"
       ? "/sign-in"
       : `/sign-in?callbackUrl=${encodeURIComponent(callbackUrl)}`;
+
+  const errorCallbackUrl =
+    callbackUrl === "/"
+      ? "/sign-up"
+      : `/sign-up?callbackUrl=${encodeURIComponent(callbackUrl)}`;
 
   useEffect(() => {
     if (!isSuccessful) {
@@ -133,10 +145,10 @@ export default function SignUpForm({ callbackUrl }: SignUpFormProps) {
         </div>
 
         <div>
-          <h2 className="text-xl font-bold text-gray-900">
+          <h2 className="break-words text-xl font-bold text-gray-900">
             অ্যাকাউন্ট তৈরি হয়েছে
           </h2>
-          <p className="mt-2 text-sm leading-6 text-gray-600">
+          <p className="mt-2 break-words text-sm leading-6 text-gray-600">
             স্বাগতম, {name.trim()}। আপনাকে পরবর্তী পাতায় নিয়ে যাওয়া হচ্ছে…
           </p>
         </div>
@@ -165,6 +177,26 @@ export default function SignUpForm({ callbackUrl }: SignUpFormProps) {
         >
           {formError}
         </div>
+      )}
+
+      {googleEnabled && (
+        <>
+          <GoogleSignInButton
+            callbackUrl={callbackUrl}
+            errorCallbackUrl={errorCallbackUrl}
+            onError={setFormError}
+            disabled={isSubmitting}
+          />
+
+          <div aria-hidden="true" className="relative">
+            <div className="absolute inset-0 flex items-center">
+              <span className="w-full border-t border-gray-200" />
+            </div>
+            <div className="relative flex justify-center text-xs font-medium uppercase tracking-wider">
+              <span className="bg-white px-3 text-gray-500">অথবা</span>
+            </div>
+          </div>
+        </>
       )}
 
       <AuthField
