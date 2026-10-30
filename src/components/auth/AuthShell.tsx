@@ -12,11 +12,11 @@ export default function AuthShell({
   children,
 }: AuthShellProps) {
   return (
-    <section className="mx-auto w-full max-w-lg px-4 py-10 sm:py-14">
+    <section className="mx-auto w-full max-w-lg px-4 py-8 sm:py-14">
       <div className="overflow-hidden rounded-xl border border-gray-200 bg-white shadow-sm">
         <div aria-hidden="true" className="h-1.5 bg-red-700" />
 
-        <div className="p-6 sm:p-8">
+        <div className="p-5 sm:p-8">
           <h1 className="text-2xl font-bold text-gray-900 sm:text-3xl">
             {title}
           </h1>

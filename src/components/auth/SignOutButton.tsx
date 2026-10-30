@@ -8,6 +8,7 @@ interface SignOutButtonProps {
   className?: string;
   containerClassName?: string;
   label?: string;
+  onSignedOut?: () => void;
   redirectTo?: string;
 }
 
@@ -18,6 +19,7 @@ export default function SignOutButton({
   className,
   containerClassName,
   label = "সাইন আউট",
+  onSignedOut,
   redirectTo = "/",
 }: SignOutButtonProps) {
   const router = useRouter();
@@ -36,6 +38,7 @@ export default function SignOutButton({
         return;
       }
 
+      onSignedOut?.();
       router.replace(redirectTo);
       router.refresh();
     } catch {

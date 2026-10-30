@@ -16,7 +16,7 @@ interface AuthFieldProps
 }
 
 const inputClassName =
-  "block w-full rounded-md border border-gray-300 bg-white px-3 py-2.5 text-sm text-gray-900 shadow-sm outline-none transition placeholder:text-gray-400 focus:border-red-600 focus:ring-2 focus:ring-red-600/20 disabled:cursor-not-allowed disabled:bg-gray-100";
+  "block w-full rounded-md border border-gray-300 bg-white px-3 py-2.5 text-base text-gray-900 shadow-sm outline-none transition placeholder:text-gray-400 focus:border-red-600 focus:ring-2 focus:ring-red-600/20 disabled:cursor-not-allowed disabled:bg-gray-100 sm:text-sm";
 
 export default function AuthField({
   name,
